@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+	
+	<context:component-scan base-package="com.luckylas.crm"></context:component-scan>
+	
+	<!-- 加载mysql.properties文件 -->
+	<context:property-placeholder location="classpath:mysql.properties"/>
+	
+	<!-- 配置dataSource -->       
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${mysql.driver}"></property>
+		<property name="jdbcUrl" value="${mysql.url}"></property>
+		<property name="user" value="${mysql.username}"></property>
+		<property name="password" value="${mysql.password}"></property>
+	</bean>
+	
+	<!-- 配置sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 连接数据库 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 加载MyBatis的配置文件 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!-- 自动扫描指定路径下的mapper.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/luckylas/crm/mapper/xml/*.xml"></property>
+	</bean>
+	
+	<!-- MapperScannerConfiguration 自动扫描xxMapper接口类，在容器中得到xxMapper对象 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.luckylas.crm.mapper"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	
+	<!-- 配置JSON消息转换器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="MappingJackson2HttpMessageConverter"></ref>
+			</list>
+		</property>
+	</bean>
+	<bean id="MappingJackson2HttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+				<value>application/x-www-form-urlencoded;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>  
+	
+</beans>
+

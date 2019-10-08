@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+  	<!-- 数据库连接 -->
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/crm?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false" 
+    	driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+    <!-- Java实体类所在包名称和项目名称 -->
+    <javaModelGenerator targetPackage="com.luckylas.crm.entity" targetProject="crm/src/main/java" />
+    <!-- mapper.xml所在的包(targetPackage)和所在的项目(targetProject) -->
+    <sqlMapGenerator targetPackage="com.luckylas.crm.mapper.xml" targetProject="crm/src/main/java" />
+    
+    <javaClientGenerator targetPackage="com.luckylas.crm.mapper" targetProject="crm/src/main/java" type="XMLMAPPER" />
+    <!-- tableName标签表示数据库中的表，可以有多个，
+         schema:用于指定实体类的名字，不指定则默认是表名的首字母大写
+     -->
+    <table schema="SalePlan" tableName="sale_plan">
+    </table>
+  </context>
+</generatorConfiguration>

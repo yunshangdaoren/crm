@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <configuration>
+  	<!-- 控制台输出日志内容 -->
+  	<!-- <settings>
+  		<setting name="logImpl" value="STDOUT_LOGGING"></setting>
+  	</settings> -->
+	 <!-- 分页插件的配置 -->
+	 <plugins>
+	 	<plugin interceptor="com.github.pagehelper.PageInterceptor">
+	 		<!-- 
+	 			value：表示传入参数(page,rows)不合理时的处理方式
+	 			    为true时：如果page表示的页面不存在时，如page<1，那么page设为1；如果page>最后一页，那么page设置为最后一页
+	 		 		为false时：如果page表示的页面不存在时，查询内容为空
+	 		 -->
+	 		<property name="reasonable" value="true"></property>
+	 	</plugin>
+	 </plugins>
+  </configuration>
