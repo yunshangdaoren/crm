@@ -279,10 +279,7 @@
 				}
 			});
 		});
-		//退出
-		$("#btnHideShadeAddCon").click(function(){
-			$(".shadeAddCon").hide();
-		});
+		 
 		//退出
 		$("#btnHideShadeEditCon").click(function(){
 			$(".shadeEditCon").hide();
